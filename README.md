@@ -1,2 +1,0 @@
-# imeiApi
-IMEI-102

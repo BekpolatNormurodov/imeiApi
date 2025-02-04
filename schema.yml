@@ -1,0 +1,1351 @@
+openapi: 3.0.3
+info:
+  title: IMEI Project API
+  version: 1.0.0
+  description: IMEI Project
+paths:
+  /api/v1/ariza/:
+    get:
+      operationId: ariza_list
+      parameters:
+      - in: query
+        name: color
+        schema:
+          type: string
+      - in: query
+        name: is_deleted
+        schema:
+          type: boolean
+      - in: query
+        name: model
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: per_page
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: status
+        schema:
+          type: string
+          enum:
+          - qidiruvda
+          - topild
+          - yaratildi
+          - yopildi
+        description: |-
+          * `yaratildi` - Yaratildi
+          * `qidiruvda` - Qidiruvda
+          * `topild` - Topildi
+          * `yopildi` - Yakunlandi
+      tags:
+      - ariza
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedArizaModelList'
+          description: ''
+    post:
+      operationId: ariza_create
+      tags:
+      - ariza
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArizaModel'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ArizaModel'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ArizaModel'
+        required: true
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArizaModel'
+          description: ''
+  /api/v1/ariza/{id}/:
+    get:
+      operationId: ariza_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this ariza model.
+        required: true
+      tags:
+      - ariza
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArizaModel'
+          description: ''
+    put:
+      operationId: ariza_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this ariza model.
+        required: true
+      tags:
+      - ariza
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArizaModel'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ArizaModel'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ArizaModel'
+        required: true
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArizaModel'
+          description: ''
+    patch:
+      operationId: ariza_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this ariza model.
+        required: true
+      tags:
+      - ariza
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedArizaModel'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedArizaModel'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedArizaModel'
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArizaModel'
+          description: ''
+    delete:
+      operationId: ariza_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this ariza model.
+        required: true
+      tags:
+      - ariza
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/jinoyatishi/:
+    get:
+      operationId: jinoyatishi_list
+      parameters:
+      - in: query
+        name: is_deleted
+        schema:
+          type: boolean
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: status
+        schema:
+          type: string
+          enum:
+          - ochilgan
+          - qaytarilgan
+          - sud
+          - yopildi
+        description: |-
+          * `ochilgan` - Yangi
+          * `qaytarilgan` - Qaytarilgan
+          * `sud` - Sudga chiqarildi
+          * `yopildi` - Yopilgan
+      tags:
+      - jinoyatishi
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedJinoyatIshiList'
+          description: ''
+    post:
+      operationId: jinoyatishi_create
+      tags:
+      - jinoyatishi
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JinoyatIshi'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/JinoyatIshi'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/JinoyatIshi'
+        required: true
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JinoyatIshi'
+          description: ''
+  /api/v1/jinoyatishi/{id}/:
+    get:
+      operationId: jinoyatishi_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this jinoyat ishi model.
+        required: true
+      tags:
+      - jinoyatishi
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JinoyatIshi'
+          description: ''
+    put:
+      operationId: jinoyatishi_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this jinoyat ishi model.
+        required: true
+      tags:
+      - jinoyatishi
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JinoyatIshi'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/JinoyatIshi'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/JinoyatIshi'
+        required: true
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JinoyatIshi'
+          description: ''
+    patch:
+      operationId: jinoyatishi_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this jinoyat ishi model.
+        required: true
+      tags:
+      - jinoyatishi
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedJinoyatIshi'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedJinoyatIshi'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedJinoyatIshi'
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JinoyatIshi'
+          description: ''
+    delete:
+      operationId: jinoyatishi_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this jinoyat ishi model.
+        required: true
+      tags:
+      - jinoyatishi
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/profile/:
+    get:
+      operationId: profile_list
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      tags:
+      - profile
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProfileList'
+          description: ''
+    post:
+      operationId: profile_create
+      tags:
+      - profile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Profile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Profile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Profile'
+        required: true
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: ''
+  /api/v1/profile/{id}/:
+    get:
+      operationId: profile_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this custom user.
+        required: true
+      tags:
+      - profile
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: ''
+    put:
+      operationId: profile_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this custom user.
+        required: true
+      tags:
+      - profile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Profile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Profile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Profile'
+        required: true
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: ''
+    patch:
+      operationId: profile_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this custom user.
+        required: true
+      tags:
+      - profile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedProfile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedProfile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedProfile'
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: ''
+    delete:
+      operationId: profile_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this custom user.
+        required: true
+      tags:
+      - profile
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/token/:
+    post:
+      operationId: token_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      tags:
+      - token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenObtainPair'
+          description: ''
+  /api/v1/token/refresh/:
+    post:
+      operationId: token_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /api/v1/users/:
+    get:
+      operationId: users_list
+      parameters:
+      - in: query
+        name: bolim__name
+        schema:
+          type: string
+      - in: query
+        name: boshqarma__name
+        schema:
+          type: string
+      - in: query
+        name: is_active
+        schema:
+          type: boolean
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: unvon__name
+        schema:
+          type: string
+      tags:
+      - users
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedCustomUserList'
+          description: ''
+    post:
+      operationId: users_create
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CustomUser'
+        required: true
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomUser'
+          description: ''
+  /api/v1/users/{id}/:
+    get:
+      operationId: users_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this custom user.
+        required: true
+      tags:
+      - users
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomUser'
+          description: ''
+    put:
+      operationId: users_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this custom user.
+        required: true
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CustomUser'
+        required: true
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomUser'
+          description: ''
+    patch:
+      operationId: users_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this custom user.
+        required: true
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCustomUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCustomUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCustomUser'
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomUser'
+          description: ''
+    delete:
+      operationId: users_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this custom user.
+        required: true
+      tags:
+      - users
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    ArizaModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        author:
+          allOf:
+          - $ref: '#/components/schemas/Arizachi'
+          readOnly: true
+        status:
+          $ref: '#/components/schemas/ArizaModelStatusEnum'
+        imei:
+          type: string
+          maxLength: 255
+        last_simcard:
+          type: string
+          maxLength: 255
+        model:
+          type: string
+          maxLength: 255
+        color:
+          type: string
+          maxLength: 255
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        owner:
+          allOf:
+          - $ref: '#/components/schemas/ArizaOwner'
+          readOnly: true
+        jshir:
+          type: string
+          writeOnly: true
+        phone_number:
+          type: string
+          writeOnly: true
+        fish:
+          type: string
+          writeOnly: true
+      required:
+      - author
+      - color
+      - created_at
+      - fish
+      - id
+      - imei
+      - jshir
+      - last_simcard
+      - model
+      - owner
+      - phone_number
+      - updated_at
+    ArizaModelStatusEnum:
+      enum:
+      - yaratildi
+      - qidiruvda
+      - topild
+      - yopildi
+      type: string
+      description: |-
+        * `yaratildi` - Yaratildi
+        * `qidiruvda` - Qidiruvda
+        * `topild` - Topildi
+        * `yopildi` - Yakunlandi
+    ArizaOwner:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        first_name:
+          type: string
+          nullable: true
+          maxLength: 255
+        last_name:
+          type: string
+          maxLength: 255
+        father_name:
+          type: string
+          nullable: true
+          maxLength: 255
+        phone_number:
+          type: string
+          maxLength: 13
+        jshir:
+          type: string
+          maxLength: 14
+      required:
+      - id
+      - jshir
+      - last_name
+      - phone_number
+    Arizachi:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          maxLength: 255
+      required:
+      - id
+      - username
+    Bolim:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+      required:
+      - id
+      - name
+    Boshqarma:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+      required:
+      - id
+      - name
+    CustomUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        phone_number:
+          type: string
+          maxLength: 13
+        jton:
+          type: string
+          maxLength: 8
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        father_name:
+          type: string
+          nullable: true
+          maxLength: 50
+        boshqarma:
+          allOf:
+          - $ref: '#/components/schemas/Boshqarma'
+          readOnly: true
+        bolim:
+          allOf:
+          - $ref: '#/components/schemas/Bolim'
+          readOnly: true
+        unvon:
+          allOf:
+          - $ref: '#/components/schemas/Unvon'
+          readOnly: true
+        ishjoylari:
+          type: array
+          items:
+            $ref: '#/components/schemas/Boshqarma'
+          readOnly: true
+      required:
+      - bolim
+      - boshqarma
+      - id
+      - ishjoylari
+      - jton
+      - phone_number
+      - unvon
+    JinoyatIshi:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        author:
+          allOf:
+          - $ref: '#/components/schemas/Arizachi'
+          readOnly: true
+        fish:
+          type: string
+          maxLength: 255
+        jshir:
+          type: string
+          maxLength: 255
+        info:
+          type: string
+        phone_number:
+          type: string
+          maxLength: 13
+        status:
+          $ref: '#/components/schemas/JinoyatIshiStatusEnum'
+      required:
+      - author
+      - fish
+      - id
+      - info
+      - jshir
+      - phone_number
+    JinoyatIshiStatusEnum:
+      enum:
+      - ochilgan
+      - qaytarilgan
+      - sud
+      - yopildi
+      type: string
+      description: |-
+        * `ochilgan` - Yangi
+        * `qaytarilgan` - Qaytarilgan
+        * `sud` - Sudga chiqarildi
+        * `yopildi` - Yopilgan
+    PaginatedArizaModelList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArizaModel'
+    PaginatedCustomUserList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomUser'
+    PaginatedJinoyatIshiList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/JinoyatIshi'
+    PaginatedProfileList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Profile'
+    PatchedArizaModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        author:
+          allOf:
+          - $ref: '#/components/schemas/Arizachi'
+          readOnly: true
+        status:
+          $ref: '#/components/schemas/ArizaModelStatusEnum'
+        imei:
+          type: string
+          maxLength: 255
+        last_simcard:
+          type: string
+          maxLength: 255
+        model:
+          type: string
+          maxLength: 255
+        color:
+          type: string
+          maxLength: 255
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        owner:
+          allOf:
+          - $ref: '#/components/schemas/ArizaOwner'
+          readOnly: true
+        jshir:
+          type: string
+          writeOnly: true
+        phone_number:
+          type: string
+          writeOnly: true
+        fish:
+          type: string
+          writeOnly: true
+    PatchedCustomUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        phone_number:
+          type: string
+          maxLength: 13
+        jton:
+          type: string
+          maxLength: 8
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        father_name:
+          type: string
+          nullable: true
+          maxLength: 50
+        boshqarma:
+          allOf:
+          - $ref: '#/components/schemas/Boshqarma'
+          readOnly: true
+        bolim:
+          allOf:
+          - $ref: '#/components/schemas/Bolim'
+          readOnly: true
+        unvon:
+          allOf:
+          - $ref: '#/components/schemas/Unvon'
+          readOnly: true
+        ishjoylari:
+          type: array
+          items:
+            $ref: '#/components/schemas/Boshqarma'
+          readOnly: true
+    PatchedJinoyatIshi:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        author:
+          allOf:
+          - $ref: '#/components/schemas/Arizachi'
+          readOnly: true
+        fish:
+          type: string
+          maxLength: 255
+        jshir:
+          type: string
+          maxLength: 255
+        info:
+          type: string
+        phone_number:
+          type: string
+          maxLength: 13
+        status:
+          $ref: '#/components/schemas/JinoyatIshiStatusEnum'
+    PatchedProfile:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        phone_number:
+          type: string
+          maxLength: 13
+        jton:
+          type: string
+          maxLength: 8
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        father_name:
+          type: string
+          nullable: true
+          maxLength: 50
+        boshqarma:
+          allOf:
+          - $ref: '#/components/schemas/Boshqarma'
+          readOnly: true
+        bolim:
+          allOf:
+          - $ref: '#/components/schemas/Bolim'
+          readOnly: true
+        unvon:
+          allOf:
+          - $ref: '#/components/schemas/Unvon'
+          readOnly: true
+        ishjoylari:
+          type: array
+          items:
+            $ref: '#/components/schemas/Boshqarma'
+          readOnly: true
+    Profile:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        phone_number:
+          type: string
+          maxLength: 13
+        jton:
+          type: string
+          maxLength: 8
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        father_name:
+          type: string
+          nullable: true
+          maxLength: 50
+        boshqarma:
+          allOf:
+          - $ref: '#/components/schemas/Boshqarma'
+          readOnly: true
+        bolim:
+          allOf:
+          - $ref: '#/components/schemas/Bolim'
+          readOnly: true
+        unvon:
+          allOf:
+          - $ref: '#/components/schemas/Unvon'
+          readOnly: true
+        ishjoylari:
+          type: array
+          items:
+            $ref: '#/components/schemas/Boshqarma'
+          readOnly: true
+      required:
+      - bolim
+      - boshqarma
+      - id
+      - ishjoylari
+      - jton
+      - phone_number
+      - unvon
+    TokenObtainPair:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          readOnly: true
+      required:
+      - access
+      - password
+      - refresh
+      - username
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          writeOnly: true
+      required:
+      - access
+      - refresh
+    Unvon:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+      required:
+      - id
+      - name
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
