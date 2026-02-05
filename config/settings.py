@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-==i!q=)#(gq93l-%0f335y7q$c*1(dl5jc*-4u4un$!=9=(es#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 APPEND_SLASH = False
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '18.141.187.93', 'www.imeiApi.yacdem.uz', 'imeiApi.yacdem.uz']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '18.141.187.93', 'www.imeiApi.yacdem.uz', 'imeiApi.yacdem.uz', 'bekpolatnormurodov.uz']
 
 # Application definition
 
