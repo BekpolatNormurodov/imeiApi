@@ -1,2 +1,0 @@
-# imeiApi
-IMEI in Python
